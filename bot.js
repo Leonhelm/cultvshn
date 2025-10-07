@@ -25,7 +25,7 @@ const run = async () => {
     )
     .map((alertMessage) => alertMessage.split('<i class="emoji"').slice(0, 1));
 
-  console.log("ALERT MESSAGES:", JSON.stringify(alertMessages, null, 2));
+  console.error("ALERT MESSAGES:", JSON.stringify(alertMessages, null, 2));
 };
 
 await run();
