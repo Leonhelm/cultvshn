@@ -21,7 +21,7 @@ const run = async () => {
     .map((text) => text.split("</div>").slice(0, 1));
   const alertMessages = messages
     .filter((message) =>
-      alertWords.find((alertWord) => message.include(alertWord))
+      alertWords.find((alertWord) => message.includes(alertWord))
     )
     .map((alertMessage) => alertMessage.split('<i class="emoji"').slice(0, 1));
 
