@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
   schedule:
-    - cron: "18,48 * * * *"
+    - cron: "18 * * * *"
 
 jobs:
   run-bot:
