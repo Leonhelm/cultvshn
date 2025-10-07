@@ -1,0 +1,31 @@
+const RADAR_TG_URL = process.env.RADAR_TG_URL;
+const ALERT_WORDS = process.env.ALERT_WORDS;
+
+const run = async () => {
+  if (!RADAR_TG_URL) {
+    throw new Error("void RADAR_TG_URL");
+  }
+
+  const alertWords = ALERT_WORDS.split(",")
+    .map((word) => word.trim())
+    .filter(Boolean);
+
+  if (alertWords.length < 1) {
+    throw new Error("error ALERT_WORDS");
+  }
+
+  const response = await fetch(RADAR_TG_URL).then((r) => r.text());
+  const messages = response
+    .split('<div class="tgme_widget_message_text js-message_text" dir="auto">')
+    .slice(1)
+    .map((text) => text.split("</div>").slice(0, 1));
+  const alertMessages = messages
+    .filter((message) =>
+      alertWords.find((alertWord) => message.include(alertWord))
+    )
+    .map((alertMessage) => alertMessage.split('<i class="emoji"').slice(0, 1));
+
+  console.log("ALERT MESSAGES:", JSON.stringify(alertMessages, null, 2));
+};
+
+await run();
