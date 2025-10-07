@@ -20,9 +20,7 @@ const run = async () => {
     .slice(1)
     .map((text) => text.split("</div>").slice(0, 1));
   const alertMessages = messages
-    .filter((message) =>
-      alertWords.find((alertWord) => message.includes(alertWord))
-    )
+    .filter((message) => Boolean(alertWords.find((alertWord) => message.includes(alertWord))))
     .map((alertMessage) => alertMessage.split('<i class="emoji"').slice(0, 1));
 
   if (alertMessages.length >= 1) {
