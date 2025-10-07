@@ -13,7 +13,7 @@ const run = async () => {
   if (alertWords.length < 1) {
     throw new Error("error ALERT_WORDS");
   }
-
+  
   const response = await fetch(RADAR_TG_URL).then((r) => r.text());
   const messages = response
     .split('<div class="tgme_widget_message_text js-message_text" dir="auto">')
@@ -25,7 +25,11 @@ const run = async () => {
     )
     .map((alertMessage) => alertMessage.split('<i class="emoji"').slice(0, 1));
 
-  console.error("ALERT MESSAGES:", JSON.stringify(alertMessages, null, 2));
+  if (alertMessages.length >= 1) {
+    console.error("ALERT MESSAGES:", JSON.stringify(alertMessages, null, 2));
+  } else {
+    console.log("VOID ALERT MESSAGES");
+  }
 };
 
 await run();
