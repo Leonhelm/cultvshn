@@ -18,15 +18,15 @@ const run = async () => {
   const messages = response
     .split('<div class="tgme_widget_message_text js-message_text" dir="auto">')
     .slice(1)
-    .map((text) => text.split("</div>").slice(0, 1).toLowerCase());
+    .map((text) => text.split("</div>").at(0).toLowerCase());
   const alertMessages = messages
     .filter((message) => Boolean(alertWords.find((alertWord) => message.includes(alertWord))))
-    .map((alertMessage) => alertMessage.split('<i class="emoji"').slice(0, 1));
+    .map((alertMessage) => alertMessage.split('<i class="emoji"').at(0));
 
   if (alertMessages.length >= 1) {
     console.error("ALERT MESSAGES:", JSON.stringify(alertMessages, null, 2));
   } else {
-    console.log("VOID ALERT MESSAGES", JSON.stringify(messages, null, 2));
+    console.log("VOID ALERT MESSAGES");
   }
 };
 
