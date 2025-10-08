@@ -24,7 +24,7 @@ const run = async () => {
     .map((alertMessage) => alertMessage.split('<i class="emoji"').at(0));
 
   if (alertMessages.length >= 1) {
-    console.error("ALERT MESSAGES:", JSON.stringify(alertMessages, null, 2));
+    throw new Error(`ALERT MESSAGES: ${JSON.stringify(alertMessages, null, 2)}`);
   } else {
     console.log("VOID ALERT MESSAGES");
   }
