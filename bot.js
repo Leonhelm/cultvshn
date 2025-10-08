@@ -7,7 +7,7 @@ const run = async () => {
   }
 
   const alertWords = ALERT_WORDS.split(",")
-    .map((word) => word.trim())
+    .map((word) => word.trim().toLowerCase())
     .filter(Boolean);
 
   if (alertWords.length < 1) {
@@ -18,7 +18,7 @@ const run = async () => {
   const messages = response
     .split('<div class="tgme_widget_message_text js-message_text" dir="auto">')
     .slice(1)
-    .map((text) => text.split("</div>").slice(0, 1));
+    .map((text) => text.split("</div>").slice(0, 1).toLowerCase());
   const alertMessages = messages
     .filter((message) => Boolean(alertWords.find((alertWord) => message.includes(alertWord))))
     .map((alertMessage) => alertMessage.split('<i class="emoji"').slice(0, 1));
