@@ -26,7 +26,7 @@ const run = async () => {
   if (alertMessages.length >= 1) {
     console.error("ALERT MESSAGES:", JSON.stringify(alertMessages, null, 2));
   } else {
-    console.log("VOID ALERT MESSAGES");
+    console.log("VOID ALERT MESSAGES", JSON.stringify(messages, null, 2));
   }
 };
 
