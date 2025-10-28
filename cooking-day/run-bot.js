@@ -81,8 +81,6 @@ const run = async () => {
       username,
     } = chat;
 
-    console.log("text", text);
-
     await deleteMessage(chatId, messageId);
   }
 };
