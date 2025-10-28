@@ -57,7 +57,7 @@ const run = async () => {
     await deleteMessage(chatId, messageId);
   }
 
-  for (const [chatId, text] of chats) {
+  for (const [chatId, text] of chatsToSend) {
     await sendMessage(chatId, text);
   }
 };
