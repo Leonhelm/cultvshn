@@ -3,47 +3,6 @@ const API = `https://api.telegram.org/bot${TG_BOT_API_TOKEN}`;
 
 let offset = 0;
 
-/**
- @typedef {Object} User
- @property {number} id - Уникальный идентификатор пользователя.
- @property {boolean} is_bot - Является ли пользователь ботом.
- @property {string} first_name - Имя пользователя.
- @property {string} [last_name] - Фамилия пользователя.
- @property {string} [username] - Имя пользователя в Telegram.
- @property {string} [language_code] - Код языка клиента пользователя.
- */
-
-/**
- @typedef {Object} Chat
- @property {number} id - Уникальный идентификатор чата.
- @property {string} type - Тип чата (например, "private").
- @property {string} [first_name] - Имя участника чата.
- @property {string} [last_name] - Фамилия участника чата.
- @property {string} [username] - Имя пользователя в Telegram.
- */
-
-/**
- @typedef {Object} Message
- @property {number} message_id - Уникальный идентификатор сообщения.
- @property {User} from - Отправитель сообщения.
- @property {Chat} chat - Чат, в котором отправлено сообщение.
- @property {number} date - Временная метка отправки сообщения (Unix time).
- @property {string} text - Текст сообщения.
- */
-
-/**
- @typedef {Object} Update
- @property {number} update_id - Уникальный идентификатор обновления.
- @property {Message} message - Объект входящего сообщения.
- */
-
-/**
- Результат выполнения асинхронной функции, имитирующей получение обновлений от Telegram Bot API.
- * @async
- @function getUpdates
- @returns {Promise<Update[]>} Массив объектов обновлений от Telegram.
- */
-
 const getUpdates = async () => {
   const res = await fetch(`${API}/getUpdates?timeout=30&offset=${offset}`);
   const data = await res.json();
