@@ -1,4 +1,4 @@
-import { getUpdates, deleteMessage, sendMessage } from "../shared/tg-api";
+import { getUpdates, deleteMessage, sendMessage } from "../shared/tg-api.js";
 
 const RADAR_TG_URL = process.env.RADAR_TG_URL;
 const ALERT_WORDS = process.env.ALERT_WORDS;
