@@ -17,9 +17,8 @@ const getAlertMessage = async (alertWords) => {
       Boolean(alertWords.find((alertWord) => message.includes(alertWord)))
     )
     .map((alertMessage) => alertMessage.split('<i class="emoji"').at(0));
-  const lastAlertMessage = alertMessages.at(-1);
 
-  if (lastAlertMessage.includes("Отбой")) {
+  if (alertMessages?.at(-1)?.includes("Отбой")) {
     return GREEN_MESSAGE;
   }
 
