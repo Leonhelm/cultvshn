@@ -2,6 +2,7 @@ const TG_BOT_API_TOKEN = process.env.TG_BOT_API_TOKEN;
 const API = `https://api.telegram.org/bot${TG_BOT_API_TOKEN}`;
 
 let offset = 0;
+offset = 9;
 
 export const getUpdates = async () => {
   const res = await fetch(`${API}/getUpdates?timeout=30&offset=${offset}`);
