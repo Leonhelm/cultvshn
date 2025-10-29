@@ -47,11 +47,13 @@ const run = async () => {
   for (const update of updates) {
     const { chatId, messageId, text } = update;
 
-    if (text === RED_MESSAGE && alertMessage === GREEN_MESSAGE) {
-      chatsToSend.set(chatId, GREEN_MESSAGE);
-    } else if (alertMessage === RED_MESSAGE) {
-      chatsToSend.set(chatId, RED_MESSAGE);
-    }
+    console.log("text", chatId, messageId, text);
+
+    // if (text === RED_MESSAGE && alertMessage === GREEN_MESSAGE) {
+    //   chatsToSend.set(chatId, GREEN_MESSAGE);
+    // } else if (alertMessage === RED_MESSAGE) {
+    //   chatsToSend.set(chatId, RED_MESSAGE);
+    // }
 
     await deleteMessage(chatId, messageId);
   }
