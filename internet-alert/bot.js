@@ -22,10 +22,14 @@ const getAlertMessage = async (alertWords) => {
     return GREEN_MESSAGE;
   }
 
-  return alertMessages.length >= 1 ? RED_MESSAGE : null;
+  if (alertMessages.length >= 1) {
+    return RED_MESSAGE;
+  }
+
+  return null;
 };
 
-const run = async () => {
+export const run = async () => {
   if (!RADAR_TG_URL) {
     throw new Error("void RADAR_TG_URL");
   }
@@ -45,12 +49,10 @@ const run = async () => {
   const chatsToSend = new Map();
 
   for (const update of updates) {
-    const { chatId, messageId, text } = update;
+    const { chatId, messageId } = update;
 
-    if (text === RED_MESSAGE && alertMessage === GREEN_MESSAGE) {
-      chatsToSend.set(chatId, GREEN_MESSAGE);
-    } else if (alertMessage === RED_MESSAGE) {
-      chatsToSend.set(chatId, RED_MESSAGE);
+    if (alertMessage != null) {
+      chatsToSend.set(chatId, alertMessage);
     }
 
     await deleteMessage(chatId, messageId);
@@ -60,5 +62,3 @@ const run = async () => {
     await sendMessage(chatId, text);
   }
 };
-
-await run();
