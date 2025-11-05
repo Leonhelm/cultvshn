@@ -14,7 +14,7 @@ export const getUpdates = async () => {
       id: chatId,
       first_name: firstName,
       last_name: lastName,
-      username,
+      username: userName,
     } = chat;
 
     return {
@@ -27,7 +27,7 @@ export const getUpdates = async () => {
       chatId,
       firstName,
       lastName,
-      username,
+      userName,
     };
   });
 };
