@@ -8,5 +8,6 @@
   },
   "scripts": {
     "start": "node run-tg-bot.ts"
-  }
+  },
+  "dependencies": {}
 }
