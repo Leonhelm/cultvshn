@@ -9,5 +9,7 @@
   "scripts": {
     "start": "node run-tg-bot.ts"
   },
-  "dependencies": {}
+  "dependencies": {
+    "firebase": "^12.5.0"
+  }
 }
