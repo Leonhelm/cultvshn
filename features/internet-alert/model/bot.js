@@ -1,4 +1,8 @@
-import { getUpdates, deleteMessage, sendMessage } from "../shared/tg-api.js";
+import {
+  getUpdates,
+  deleteMessage,
+  sendMessage,
+} from "../../../shared/tg-api.js";
 
 const RADAR_TG_URL = process.env.RADAR_TG_URL;
 const ALERT_WORDS = process.env.ALERT_WORDS;
@@ -29,7 +33,7 @@ const getAlertMessage = async (alertWords) => {
   return null;
 };
 
-export const run = async () => {
+export const bot = async () => {
   if (!RADAR_TG_URL) {
     throw new Error("void RADAR_TG_URL");
   }

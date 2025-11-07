@@ -1,6 +1,6 @@
-import { getUpdates, deleteMessage } from "../shared/tg-api.js";
+import { getUpdates, deleteMessage } from "../../../shared/tg-api.js";
 
-const run = async () => {
+export const bot = async () => {
   const updates = await getUpdates();
 
   for (const update of updates) {
@@ -9,5 +9,3 @@ const run = async () => {
     await deleteMessage(chatId, messageId);
   }
 };
-
-await run();
