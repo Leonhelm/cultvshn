@@ -1,6 +1,6 @@
 import admin from 'firebase-admin';
 
-const svc = JSON.parse(process.env.SERVICE_ACCOUNT_JSON);
+const svc = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
 
 admin.initializeApp({ credential: admin.credential.cert(svc) });
 
