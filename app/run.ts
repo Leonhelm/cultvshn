@@ -1,9 +1,9 @@
-import { readOffset, incrementOffset } from "../shared/firebase.js";
+import { readOffset, updateOffset } from "../shared/firebase.js";
 
 const run = async () => {
   const offset = await readOffset();
 
-  await incrementOffset(3);
+  await updateOffset(3);
 
   const offsetNew = await readOffset();
 
