@@ -7,7 +7,7 @@
     "node": ">=24.0.0"
   },
   "scripts": {
-    "start": "node run-tg-bot.ts"
+    "start": "node app/run.ts"
   },
   "dependencies": {
     "firebase": "^12.5.0"
