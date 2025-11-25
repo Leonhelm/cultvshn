@@ -1,1 +1,1 @@
-export { bot } from "./model/bot.js";
+export { getAlertMessage } from "./model/alert-message.js";

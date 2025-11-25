@@ -1,9 +1,7 @@
 const TG_BOT_API_TOKEN = process.env.TG_BOT_API_TOKEN;
 const API = `https://api.telegram.org/bot${TG_BOT_API_TOKEN}`;
 
-let offset = 0; // надо сохранять updateId + 1, затем делать запрос
-
-export const getUpdates = async () => {
+export const getUpdates = async (offset = 0) => {
   const res = await fetch(`${API}/getUpdates?timeout=30&offset=${offset}`);
   const data = await res.json();
   return data.result.map((upd) => {

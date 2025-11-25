@@ -10,7 +10,7 @@ const ALERT_WORDS = process.env.ALERT_WORDS;
 const RED_MESSAGE = "❌ Предвижу ухудшение мобильного интернета!";
 const GREEN_MESSAGE = "💚 Предвижу улучшение мобильного интернета!";
 
-const getAlertMessage = async (alertWords) => {
+const getAlertMessageWithTg = async (alertWords) => {
   const response = await fetch(RADAR_TG_URL).then((r) => r.text());
   const messages = response
     .split('<div class="tgme_widget_message_text js-message_text" dir="auto">')
@@ -33,7 +33,7 @@ const getAlertMessage = async (alertWords) => {
   return null;
 };
 
-export const bot = async () => {
+export const getAlertMessage = async () => {
   if (!RADAR_TG_URL) {
     throw new Error("void RADAR_TG_URL");
   }
@@ -46,23 +46,5 @@ export const bot = async () => {
     throw new Error("error ALERT_WORDS");
   }
 
-  const [alertMessage, updates] = await Promise.all([
-    getAlertMessage(alertWords),
-    getUpdates(),
-  ]);
-  const chatsToSend = new Map();
-
-  for (const update of updates) {
-    const { chatId, messageId } = update;
-
-    if (alertMessage != null) {
-      chatsToSend.set(chatId, alertMessage);
-    }
-
-    await deleteMessage(chatId, messageId);
-  }
-
-  for (const [chatId, text] of chatsToSend) {
-    await sendMessage(chatId, text);
-  }
+  return getAlertMessageWithTg(alertWords);
 };

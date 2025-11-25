@@ -1,13 +1,32 @@
-import { readOffset, updateOffset } from "../shared/firebase.js";
+import { getAlertMessage } from "../features/internet-alert";
+import { getUpdates, deleteMessage, sendMessage } from "../shared/tg-api.js";
+import { readOffset, updateOffset, createUser } from "../shared/firebase.js";
 
 const run = async () => {
-  const offset = await readOffset();
+  const offset = (await readOffset()) ?? 0;
+  let offsetNew = offset;
 
-  await updateOffset(3);
+  const [alertMessage, updates] = await Promise.all([
+    getAlertMessage(),
+    getUpdates(offset),
+  ]);
 
-  const offsetNew = await readOffset();
+  for (const update of updates) {
+    const { messageId, userId, chatId, firstName, lastName, userName } = update;
 
-  console.log("offset", offset, offsetNew);
+    await Promise.all([
+      createUser({ id: userId, chatId, firstName, lastName, userName }),
+      deleteMessage(chatId, messageId),
+    ]);
+
+    offsetNew++;
+  }
+
+  // if (alertMessage != null) {
+  // TODO: await getUsers, check verifyed user field and await sendMessage(chatId, alertMessage);
+  // }
+
+  await updateOffset(offsetNew);
 };
 
 run();
