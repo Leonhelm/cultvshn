@@ -40,3 +40,8 @@ export const createUser = async (user) => {
     });
   });
 };
+
+export const getUsers = async () => {
+  const snap = await db.collection("users").get();
+  return snap.docs.map((doc) => doc.data());
+};
