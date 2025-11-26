@@ -17,7 +17,13 @@ const run = async () => {
     console.log("messageId", { messageId });
 
     await Promise.all([
-      createUser({ id: userId, chatId, firstName, lastName, userName }),
+      createUser({
+        id: String(userId),
+        chatId: String(chatId),
+        firstName,
+        lastName,
+        userName,
+      }),
       deleteMessage(chatId, messageId),
     ]);
 
