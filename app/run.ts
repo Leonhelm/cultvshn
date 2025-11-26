@@ -1,4 +1,4 @@
-import { getAlertMessage } from "../features/internet-alert";
+import { getAlertMessage } from "../features/internet-alert/index.js";
 import { getUpdates, deleteMessage, sendMessage } from "../shared/tg-api.js";
 import { readOffset, updateOffset, createUser } from "../shared/firebase.js";
 
