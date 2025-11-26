@@ -18,7 +18,7 @@ export const updateOffset = async (offset) => {
 
 export const createUser = async (user) => {
   const { id, firstName, lastName, userName, chatId } = user;
-  const userRef = db.collection("users").doc(uid);
+  const userRef = db.collection("users").doc(id);
   const nameRef = db.collection("usernames").doc(userName);
 
   await db.runTransaction(async (tx) => {

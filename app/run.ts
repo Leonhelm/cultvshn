@@ -18,8 +18,8 @@ const run = async () => {
 
     await Promise.all([
       createUser({
-        id: String(userId),
-        chatId: String(chatId),
+        id: userId,
+        chatId,
         firstName,
         lastName,
         userName,
