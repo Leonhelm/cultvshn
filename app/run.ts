@@ -14,6 +14,8 @@ const run = async () => {
   for (const update of updates) {
     const { messageId, userId, chatId, firstName, lastName, userName } = update;
 
+    console.log("messageId", { messageId });
+
     await Promise.all([
       createUser({ id: userId, chatId, firstName, lastName, userName }),
       deleteMessage(chatId, messageId),
@@ -27,6 +29,11 @@ const run = async () => {
   // }
 
   await updateOffset(offsetNew);
+
+  // TODO: delete me
+  const offset2 = await readOffset();
+
+  console.log("offset", { offset, offsetNew, offset2 });
 };
 
 run();
