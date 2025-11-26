@@ -35,8 +35,8 @@ export const createUser = async (user) => {
       firstName,
       lastName,
       userName,
-      chatId, // TODO: add field
-      updatedAt: admin.firestore.FieldValue.serverTimestamp(), // TODO: add field
+      chatId,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     });
   });
 };
