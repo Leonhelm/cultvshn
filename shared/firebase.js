@@ -16,32 +16,30 @@ export const updateOffset = async (offset) => {
   await db.doc("tg/updates").set({ offset }, { merge: true });
 };
 
-export const createUser = async (user) => {
-  const { id, firstName, lastName, userName, chatId } = user;
-  const userRef = db.collection("users").doc(id);
-  const nameRef = db.collection("usernames").doc(userName);
+export const createChat = async (chat) => {
+  const { chatId, userId, userName, firstName, lastName } = chat;
+  const userRef = db.collection("chats").doc(chatId);
 
-  await db.runTransaction(async (tx) => {
-    const nameSnap = await tx.get(nameRef);
-
-    if (nameSnap.exists) {
-      console.log("userName already taken");
-      return;
-    }
-
-    tx.set(nameRef, { uid: id });
-    tx.set(userRef, {
-      id,
+  await db.runTransaction((transaction) => {
+    transaction.set(userRef, {
+      chatId,
+      userId,
+      userName,
       firstName,
       lastName,
-      userName,
-      chatId,
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     });
   });
 };
 
-export const getUsers = async () => {
-  const snap = await db.collection("users").get();
-  return snap.docs.map((doc) => doc.data());
+export const getChats = async () => {
+  const snap = await db.collection("chats").get();
+
+  return new Map(
+    snap.docs.map((doc) => {
+      const data = doc.data();
+
+      return [data.chatId, data];
+    })
+  );
 };

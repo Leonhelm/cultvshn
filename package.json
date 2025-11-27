@@ -7,7 +7,7 @@
     "node": ">=24.0.0"
   },
   "scripts": {
-    "start": "node app/run.ts"
+    "start": "node app/run.js"
   },
   "dependencies": {
     "firebase-admin": "^13.6.0"
