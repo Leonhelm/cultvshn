@@ -10,19 +10,37 @@ const ALERT_WORDS = process.env.ALERT_WORDS;
 const RED_MESSAGE = "❌ Предвижу ухудшение мобильного интернета!";
 const GREEN_MESSAGE = "💚 Предвижу улучшение мобильного интернета!";
 
+const happenedWithinLast60Minutes = (isoString) => {
+  const ts = Date.parse(isoString);
+
+  if (Number.isNaN(ts)) {
+    return false;
+  }
+
+  const now = Date.now();
+  const diff = now - ts;
+  const sixtyMinutesMs = 60 * 60 * 1000;
+
+  return diff >= 0 && diff <= sixtyMinutesMs;
+}
+
 const getAlertMessageWithTg = async (alertWords) => {
   const response = await fetch(RADAR_TG_URL).then((r) => r.text());
+
   const messages = response
     .split('<div class="tgme_widget_message_text js-message_text" dir="auto">')
     .slice(1)
-    .map((text) => text.split("</div>").at(0).toLowerCase());
+    .map((text) => text.split("</time>").at(0).toLowerCase());
+
   const alertMessages = messages
-    .filter((message) =>
-      Boolean(alertWords.find((alertWord) => message.includes(alertWord)))
-    )
+    .filter((message) =>{
+      const datetime = message.split('<time datetime="').at(1).split('"').at(0);
+      return happenedWithinLast60Minutes(datetime);
+    })
+    .filter((message) => Boolean(alertWords.find((alertWord) => message.includes(alertWord))))
     .map((alertMessage) => alertMessage.split('<i class="emoji"').at(0));
 
-  if (alertMessages?.at(-1)?.includes("Отбой")) {
+  if (alertMessages?.some(alertMessage => alertMessage.includes("Отбой"))) {
     return GREEN_MESSAGE;
   }
 
