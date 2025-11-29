@@ -19,9 +19,7 @@ export const updateOffset = async (offset) => {
 export const createChat = async (chat) => {
   const { chatId, userId, userName, firstName, lastName } = chat;
 
-  console.log(`Chat: ${chatId} |`);
-
-  const userRef = db.collection("chats").doc(chatId);
+  const userRef = db.collection("chats").doc(String(chatId));
 
   await db.runTransaction((transaction) => {
     transaction.set(userRef, {
