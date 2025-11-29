@@ -19,9 +19,7 @@ export const updateOffset = async (offset) => {
 export const createChat = async (chat) => {
   const { chatId, userId, userName, firstName, lastName } = chat;
 
-  if (!chatId || (typeof chatId !== "string" && typeof chatId !== "number")) {
-    throw new Error(`createChat: chatId must be a non-empty string or number ${chatId}`);
-  }
+  console.log(`Chat: ${chatId} |`);
 
   const userRef = db.collection("chats").doc(chatId);
 
