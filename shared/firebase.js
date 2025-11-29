@@ -21,7 +21,7 @@ export const createChat = async (chat) => {
 
   const userRef = db.collection("chats").doc(String(chatId));
 
-  await db.runTransaction((transaction) => {
+  await db.runTransaction(async (transaction) => {
     transaction.set(userRef, {
       chatId,
       userId,
