@@ -1,28 +1,10 @@
-import {
-  getUpdates,
-  deleteMessage,
-  sendMessage,
-} from "../../../shared/tg-api.js";
+import { happenedWithinLastTime } from "../../../shared/datetime.ts";
 
 const RADAR_TG_URL = process.env.RADAR_TG_URL;
 const ALERT_WORDS = process.env.ALERT_WORDS;
 
 const RED_MESSAGE = "❌ Предвижу ухудшение мобильного интернета!";
 const GREEN_MESSAGE = "💚 Предвижу улучшение мобильного интернета!";
-
-const happenedWithinLast60Minutes = (isoString) => {
-  const ts = Date.parse(isoString);
-
-  if (Number.isNaN(ts)) {
-    return false;
-  }
-
-  const now = Date.now();
-  const diff = now - ts;
-  const sixtyMinutesMs = 60 * 60 * 1000;
-
-  return diff >= 0 && diff <= sixtyMinutesMs;
-}
 
 const getAlertMessageWithTg = async (alertWords) => {
   const response = await fetch(RADAR_TG_URL).then((r) => r.text());
@@ -33,14 +15,16 @@ const getAlertMessageWithTg = async (alertWords) => {
     .map((text) => text.split("</time>").at(0).toLowerCase());
 
   const alertMessages = messages
-    .filter((message) =>{
+    .filter((message) => {
       const datetime = message.split('<time datetime="').at(1).split('"').at(0);
-      return happenedWithinLast60Minutes(datetime);
+      return happenedWithinLastTime(datetime, "hour");
     })
-    .filter((message) => Boolean(alertWords.find((alertWord) => message.includes(alertWord))))
+    .filter((message) =>
+      Boolean(alertWords.find((alertWord) => message.includes(alertWord)))
+    )
     .map((alertMessage) => alertMessage.split('<i class="emoji"').at(0));
 
-  if (alertMessages?.some(alertMessage => alertMessage.includes("Отбой"))) {
+  if (alertMessages?.some((alertMessage) => alertMessage.includes("Отбой"))) {
     return GREEN_MESSAGE;
   }
 

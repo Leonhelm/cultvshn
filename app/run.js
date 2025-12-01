@@ -6,6 +6,7 @@ import {
   createChat,
   getChats,
 } from "../shared/firebase.js";
+import { happenedWithinLastTime } from "../shared/datetime.ts";
 
 const run = async () => {
   const offset = (await readOffset()) ?? 0;
@@ -26,9 +27,16 @@ const run = async () => {
       lastName,
       userName,
       updateId,
+      date,
     } = update;
 
-    const promises = [deleteMessage(chatId, messageId)];
+    const promises = [];
+
+    console.log("date", date, happenedWithinLastTime(date, "day"));
+
+    if (!happenedWithinLastTime(date, "day")) {
+      promises.push(deleteMessage(chatId, messageId));
+    }
 
     if (!chats.has(chatId)) {
       const chat = {
@@ -50,7 +58,7 @@ const run = async () => {
   if (alertMessage != null) {
     const promises = [];
 
-    chats.forEach(([chatId]) => {
+    chats.forEach((_chat, chatId) => {
       // TODO: chat check verifyed flag
       promises.push(sendMessage(chatId, alertMessage));
     });
