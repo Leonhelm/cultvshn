@@ -6,7 +6,7 @@ import {
   createChat,
   getChats,
 } from "../shared/firebase.js";
-import { happenedWithinLastTime } from "../shared/datetime.ts";
+import { happenedWithinLastDay } from "../shared/datetime.ts";
 
 const run = async () => {
   const offset = (await readOffset()) ?? 0;
@@ -32,9 +32,9 @@ const run = async () => {
 
     const promises = [];
 
-    console.log("date", date, happenedWithinLastTime(date, "day"));
+    console.log("date", date, happenedWithinLastDay(date));
 
-    if (!happenedWithinLastTime(date, "day")) {
+    if (!happenedWithinLastDay(date)) {
       promises.push(deleteMessage(chatId, messageId));
     }
 
