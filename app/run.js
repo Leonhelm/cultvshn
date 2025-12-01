@@ -30,13 +30,7 @@ const run = async () => {
       date,
     } = update;
 
-    const promises = [];
-
-    console.log("date", date, happenedWithinLastDay(date));
-
-    if (!happenedWithinLastDay(date)) {
-      promises.push(deleteMessage(chatId, messageId));
-    }
+    const promises = [deleteMessage(chatId, messageId)];
 
     if (!chats.has(chatId)) {
       const chat = {
