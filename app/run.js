@@ -30,7 +30,9 @@ const run = async () => {
       date,
     } = update;
 
-    const promises = [deleteMessage(chatId, messageId)];
+    const promises = [
+      // deleteMessage(chatId, messageId)
+    ];
 
     if (!chats.has(chatId)) {
       const chat = {
