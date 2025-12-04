@@ -42,7 +42,13 @@ const run = async () => {
         firstName,
         lastName,
       };
-      promises.push(createChat(chat));
+      promises.push(
+        createChat(chat),
+        sendMessage(
+          chatId,
+          `Привет, ${firstName}! Теперь ты часть нашей Грибницы! 🍄❤️🍄‍🟫`
+        )
+      );
       chats.set(chatId, chat);
     }
 
