@@ -1,5 +1,15 @@
-export const happenedWithinLastHour = (isoString: string) => {
-  const timestamp = Date.parse(isoString);
+export const happenedWithinLastHour = (isoString?: string) => {
+  if (typeof isoString !== "string") {
+    return false;
+  }
+
+  let timestamp;
+
+  try {
+    timestamp = Date.parse(isoString);
+  } catch {
+    return false;
+  }
 
   if (Number.isNaN(timestamp)) {
     return false;

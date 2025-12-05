@@ -16,7 +16,11 @@ const getAlertMessageWithTg = async (alertWords) => {
 
   const alertMessages = messages
     .filter((message) => {
-      const datetime = message.split('<time datetime="').at(1).split('"').at(0);
+      const datetime = message
+        ?.split('<time datetime="')
+        ?.at(1)
+        ?.split('"')
+        ?.at(0);
       return happenedWithinLastHour(datetime);
     })
     .filter((message) =>
