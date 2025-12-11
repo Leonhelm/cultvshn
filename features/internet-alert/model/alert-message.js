@@ -23,12 +23,14 @@ const getAlertMessageWithTg = async (alertWords) => {
         ?.at(0);
       return happenedWithinLastHour(datetime);
     })
-    .filter((message) =>
-      Boolean(alertWords.find((alertWord) => message.includes(alertWord)))
+    .filter(
+      (message) =>
+        Boolean(alertWords.find((alertWord) => message.includes(alertWord))) &&
+        message.includes("бпла")
     )
     .map((alertMessage) => alertMessage.split('<i class="emoji"').at(0));
 
-  if (alertMessages?.some((alertMessage) => alertMessage.includes("Отбой"))) {
+  if (alertMessages?.some((alertMessage) => alertMessage.includes("отбой"))) {
     return GREEN_MESSAGE;
   }
 
