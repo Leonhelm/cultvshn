@@ -1,4 +1,4 @@
-import { happenedWithinLastHour } from "../../../shared/datetime.ts";
+import { happenedWithinLastHalfHour } from "../../../shared/datetime.ts";
 
 const RADAR_TG_URL = process.env.RADAR_TG_URL;
 const ALERT_WORDS = process.env.ALERT_WORDS;
@@ -21,7 +21,7 @@ const getAlertMessageWithTg = async (alertWords) => {
         ?.at(1)
         ?.split('"')
         ?.at(0);
-      return happenedWithinLastHour(datetime);
+      return happenedWithinLastHalfHour(datetime);
     })
     .filter(
       (message) =>

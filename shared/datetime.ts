@@ -1,4 +1,4 @@
-export const happenedWithinLastHour = (isoString?: string) => {
+export const happenedWithinLastHalfHour = (isoString?: string) => {
   if (typeof isoString !== "string") {
     return false;
   }
@@ -17,7 +17,7 @@ export const happenedWithinLastHour = (isoString?: string) => {
 
   const now = Date.now();
   const diff = now - timestamp;
-  const oneHour = 30 * 60 * 1000;
+  const oneHour = 180 * 60 * 1000;
 
   return diff >= 0 && diff <= oneHour;
 };
